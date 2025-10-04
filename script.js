@@ -47,7 +47,7 @@ function renderProducts() {
 // Render cart list
 function renderCart() {
   const cart = getCart();
-  cartList.innerHTML = ""; // leave empty if no items
+  cartList.innerHTML = "";
   cart.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = `${item.name} - $${item.price}`;
@@ -72,21 +72,6 @@ function clearCart() {
 
 // Attach clear cart button
 clearCartBtn.addEventListener("click", clearCart);
-
-// Preload sessionStorage if running in Cypress (optional)
-if (window.Cypress) {
-  const existingCart = getCart();
-  // Only preload if cart is empty
-  if (existingCart.length === 0) {
-    sessionStorage.setItem(
-      "cart",
-      JSON.stringify([
-        { id: 1, name: "Product 1", price: 10 },
-        { id: 5, name: "Product 5", price: 50 },
-      ])
-    );
-  }
-}
 
 // Initial render
 renderProducts();
