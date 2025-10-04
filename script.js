@@ -12,18 +12,17 @@ const productList = document.getElementById("product-list");
 const cartList = document.getElementById("cart-list");
 const clearCartBtn = document.getElementById("clear-cart-btn");
 
-// Helper: get cart from sessionStorage
+// Helpers
 function getCart() {
   const cart = sessionStorage.getItem("cart");
   return cart ? JSON.parse(cart) : [];
 }
 
-// Helper: save cart to sessionStorage
 function saveCart(cart) {
   sessionStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Render product list
+// Render products
 function renderProducts() {
   productList.innerHTML = "";
   products.forEach((product) => {
@@ -35,7 +34,6 @@ function renderProducts() {
     productList.appendChild(li);
   });
 
-  // Attach event listeners to "Add to Cart" buttons
   document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
       const productId = parseInt(btn.getAttribute("data-id"));
@@ -44,18 +42,10 @@ function renderProducts() {
   });
 }
 
-// Render cart list
+// Render cart
 function renderCart() {
   const cart = getCart();
-  cartList.innerHTML = "";
-
-  if (cart.length === 0) {
-    const emptyMsg = document.createElement("li");
-    emptyMsg.textContent = "Cart is empty";
-    cartList.appendChild(emptyMsg);
-    return;
-  }
-
+  cartList.innerHTML = ""; // leave empty if no items
   cart.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = `${item.name} - $${item.price}`;
@@ -63,11 +53,11 @@ function renderCart() {
   });
 }
 
-// Add item to cart
+// Add item
 function addToCart(productId) {
   const cart = getCart();
   const product = products.find((p) => p.id === productId);
-  cart.push(product);
+  cart.push(product); // allow duplicates
   saveCart(cart);
   renderCart();
 }
@@ -78,9 +68,9 @@ function clearCart() {
   renderCart();
 }
 
-// Event listener for Clear Cart button
+// Events
 clearCartBtn.addEventListener("click", clearCart);
 
-// Initial render on page load
+// Init
 renderProducts();
 renderCart();
