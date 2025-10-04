@@ -55,18 +55,14 @@ function renderCart() {
   });
 }
 
-// Add product to cart
+// Add product to cart (allow duplicates)
 function addToCart(productId) {
   const cart = getCart();
   const product = products.find((p) => p.id === productId);
-  const exists = cart.some((p) => p.id === productId);
-  if (!exists) {
-    cart.push(product);
-    saveCart(cart);
-    renderCart();
-  }
+  cart.push(product); // allow duplicates
+  saveCart(cart);
+  renderCart();
 }
-
 
 // Clear cart
 function clearCart() {
