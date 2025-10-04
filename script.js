@@ -59,10 +59,14 @@ function renderCart() {
 function addToCart(productId) {
   const cart = getCart();
   const product = products.find((p) => p.id === productId);
-  cart.push(product); // allow duplicates
-  saveCart(cart);
-  renderCart();
+  const exists = cart.some((p) => p.id === productId);
+  if (!exists) {
+    cart.push(product);
+    saveCart(cart);
+    renderCart();
+  }
 }
+
 
 // Clear cart
 function clearCart() {
