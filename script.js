@@ -37,19 +37,6 @@ function renderProducts() {
   });
 }
 
-// Add to cart (event delegation)
-productList.addEventListener("click", (event) => {
-  if (event.target.classList.contains("add-to-cart-btn")) {
-    const productId = Number(event.target.dataset.id);
-    const product = products.find(p => p.id === productId);
-
-    const cart = getCart();
-    cart.push(product);
-    saveCart(cart);
-    renderCart();
-  }
-});
-
 // Render cart
 function renderCart() {
   const cart = getCart();
@@ -60,6 +47,20 @@ function renderCart() {
     cartList.appendChild(li);
   });
 }
+
+// ✅ ADD TO CART — OVERWRITE (THIS IS THE KEY)
+function addToCart(productId) {
+  const product = products.find((p) => p.id === productId);
+  saveCart([product]);          // overwrite cart
+  renderCart();
+}
+
+// Event delegation
+productList.addEventListener("click", (e) => {
+  if (e.target.classList.contains("add-to-cart-btn")) {
+    addToCart(Number(e.target.dataset.id));
+  }
+});
 
 // Clear cart
 clearCartBtn.addEventListener("click", () => {
