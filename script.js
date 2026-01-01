@@ -59,12 +59,12 @@ function renderCart() {
 
 // Add to cart
 function addToCart(productId) {
-  const cart = getCart();
   const product = products.find((p) => p.id === productId);
-  cart.push(product);
+  const cart = [product]; // overwrite cart
   saveCart(cart);
   renderCart();
 }
+
 
 // Clear cart
 function clearCart() {
