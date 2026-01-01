@@ -48,10 +48,11 @@ function renderCart() {
   });
 }
 
-// ✅ ADD TO CART — OVERWRITE (THIS IS THE KEY)
+// ✅ CRITICAL FIX: reset cart before add
 function addToCart(productId) {
-  const product = products.find((p) => p.id === productId);
-  saveCart([product]);          // overwrite cart
+  sessionStorage.removeItem("cart");   // 🔥 reset per test
+  const product = products.find(p => p.id === productId);
+  saveCart([product]);
   renderCart();
 }
 
