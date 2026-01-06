@@ -8,8 +8,8 @@ const products = [
 ];
 
 // DOM elements
-const productList = document.getElementById("product-list") || [];
-const cartList = document.getElementById("cart-list") || [];
+const productList = document.getElementById("product-list") ;
+const cartList = document.getElementById("cart-list") ;
 const clearCartBtn = document.getElementById("clear-cart-btn");
 
 // Helpers
