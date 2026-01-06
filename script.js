@@ -54,6 +54,7 @@ function addToCart(productId) {
 	
   // sessionStorage.removeItem("cart");   // 🔥 reset per test
   const product = products.find(p => p.id === productId);
+	if(!product) return;
 	cart.push(product);
 	
   saveCart(cart);
@@ -69,7 +70,7 @@ productList.addEventListener("click", (e) => {
 
 // Clear cart
 clearCartBtn.addEventListener("click", () => {
-  sessionStorage.removeItem("cart");
+  saveCart([]);
   renderCart();
 });
 
