@@ -7,25 +7,15 @@ const products = [
   { id: 5, name: "Product 5", price: 50 }
 ];
 
+let cart = JSON.parse(sessionStorage.getItem("cart") || []);
+
 // DOM elements
 const productList = document.getElementById("product-list") ;
 const cartList = document.getElementById("cart-list") ;
 const clearCartBtn = document.getElementById("clear-cart-btn");
 
-function isitializeCart(){
-	const cart = sessionStorage.getItem("cart");
-	if(!cart){
-		sessionStorage.setItem("cart", JSON.stringify([products[0], products[4]]));
-	}
-}
 
-// Helpers
-function getCart() {
-  const cart = sessionStorage.getItem("cart");
-  return cart ? JSON.parse(cart) : [];
-}
-
-function saveCart(cart) {
+function saveCart() {
   sessionStorage.setItem("cart", JSON.stringify(cart));
 }
 
@@ -46,7 +36,6 @@ function renderProducts() {
 
 // Render cart
 function renderCart() {
-  const cart = getCart();
   cartList.innerHTML = "";
   cart.forEach((item) => {
     const li = document.createElement("li");
@@ -57,14 +46,13 @@ function renderCart() {
 
 // ✅ CRITICAL FIX: reset cart before add
 function addToCart(productId) {
-	let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
-	
+
   // sessionStorage.removeItem("cart");   // 🔥 reset per test
   const product = products.find(p => p.id === productId);
 	if(!product) return;
 	cart.push(product);
 	
-  saveCart(cart);
+  saveCart();
   renderCart();
 }
 
@@ -77,11 +65,11 @@ productList.addEventListener("click", (e) => {
 
 // Clear cart
 clearCartBtn.addEventListener("click", () => {
-  saveCart([]);
+	cart = [];
+  saveCart();
   renderCart();
 }); 
   
 // Initial render
-isitializeCart();
 renderProducts();
 renderCart();
