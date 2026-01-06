@@ -52,7 +52,7 @@ function renderCart() {
 function addToCart(productId) {
 	let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
 	
-  sessionStorage.removeItem("cart");   // 🔥 reset per test
+  // sessionStorage.removeItem("cart");   // 🔥 reset per test
   const product = products.find(p => p.id === productId);
 	cart.push(product);
 	
