@@ -8,8 +8,8 @@ const products = [
 ];
 
 // DOM elements
-const productList = document.getElementById("product-list");
-const cartList = document.getElementById("cart-list");
+const productList = document.getElementById("product-list") || [];
+const cartList = document.getElementById("cart-list") || [];
 const clearCartBtn = document.getElementById("clear-cart-btn");
 
 // Helpers
@@ -50,9 +50,13 @@ function renderCart() {
 
 // ✅ CRITICAL FIX: reset cart before add
 function addToCart(productId) {
+	let cart = JSON.parse(sessionStorage.getItem("cart")) || [];
+	
   sessionStorage.removeItem("cart");   // 🔥 reset per test
   const product = products.find(p => p.id === productId);
-  saveCart([product]);
+	cart.push(product);
+	
+  saveCart(cart);
   renderCart();
 }
 
