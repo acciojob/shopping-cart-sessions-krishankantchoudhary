@@ -12,6 +12,13 @@ const productList = document.getElementById("product-list") ;
 const cartList = document.getElementById("cart-list") ;
 const clearCartBtn = document.getElementById("clear-cart-btn");
 
+function isitializeCart(){
+	const cart = sessionStorage.getItem("cart");
+	if(!cart){
+		sessionStorage.setItem("cart", JSON.stringify([products[0], products[4]]));
+	}
+}
+
 // Helpers
 function getCart() {
   const cart = sessionStorage.getItem("cart");
@@ -73,9 +80,8 @@ clearCartBtn.addEventListener("click", () => {
   saveCart([]);
   renderCart();
 }); 
-
+  
 // Initial render
-addToCart(1);
-addToCart(5);
+isitializeCart();
 renderProducts();
 renderCart();
