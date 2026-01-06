@@ -7,7 +7,7 @@ const products = [
   { id: 5, name: "Product 5", price: 50 }
 ];
 
-let cart = JSON.parse(sessionStorage.getItem("cart") || []);
+let cart = JSON.parse(sessionStorage.getItem("cart") ) || [];
 
 // DOM elements
 const productList = document.getElementById("product-list") ;
