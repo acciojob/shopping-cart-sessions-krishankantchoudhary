@@ -72,8 +72,10 @@ productList.addEventListener("click", (e) => {
 clearCartBtn.addEventListener("click", () => {
   saveCart([]);
   renderCart();
-});
+}); 
 
 // Initial render
+addToCart(1);
+addToCart(5);
 renderProducts();
 renderCart();
